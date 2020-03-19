@@ -1,0 +1,35 @@
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS "Purchase" (
+	"ConsumerID"	INTEGER NOT NULL,
+	"NovelID"	INTEGER NOT NULL,
+	"PurchaseDate"	DATE NOT NULL,
+	"Quantity"	INTEGER NOT NULL,
+	PRIMARY KEY("ConsumerID","NovelID","PurchaseDate"),
+	FOREIGN KEY("NovelID") REFERENCES "Novel"("NovelID"),
+	FOREIGN KEY("ConsumerID") REFERENCES "Consumer"("ConsumerID")
+);
+CREATE TABLE IF NOT EXISTS "Novel" (
+	"NovelID"	INTEGER NOT NULL,
+	"ISBN"	INTEGER NOT NULL,
+	"Title"	VARCHAR(40) NOT NULL,
+	"Price"	FLOAT NOT NULL,
+	"AuthorID"	INTEGER NOT NULL,
+	FOREIGN KEY("AuthorID") REFERENCES "Author"("AuthorID"),
+	PRIMARY KEY("NovelID")
+);
+CREATE TABLE IF NOT EXISTS "Author" (
+	"AuthorID"	INTEGER NOT NULL,
+	"AuthorName"	VARCHAR(40) NOT NULL,
+	"AuthorNationality"	VARCHAR(40) NOT NULL,
+	"AuthorSex"	VARCHAR(1) NOT NULL,
+	PRIMARY KEY("AuthorID")
+);
+CREATE TABLE IF NOT EXISTS "Consumer" (
+	"ConsumerID"	INTEGER NOT NULL,
+	"ConsumerName"	VARCHAR(40) NOT NULL,
+	"ConsumerNationality"	VARCHAR(40) NOT NULL,
+	"ConsumerSex"	VARCHAR(1) NOT NULL,
+	"PhoneNumber"	VARCHAR(40),
+	PRIMARY KEY("ConsumerID")
+);
+COMMIT;
